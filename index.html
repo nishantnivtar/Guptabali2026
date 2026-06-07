@@ -120,12 +120,14 @@ body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;fo
 footer{text-align:center;padding:1.5rem 1rem 0;font-size:.63rem;color:var(--muted);letter-spacing:.06em;}
 
 /* SEARCH */
-.search-wrap{margin:0.75rem 1rem 0;position:relative;}
+.search-wrap{margin:.6rem 1rem 0;position:relative;display:none;}
+.search-wrap.son{display:block;}
 .search-input{width:100%;padding:.55rem 2.2rem .55rem 2.2rem;border:1.5px solid var(--border);border-radius:10px;font-size:.75rem;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);outline:none;-webkit-appearance:none;}
 .search-input:focus{border-color:var(--ocean);}
 .search-ico{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none;}
-.search-x{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem;cursor:pointer;display:none;line-height:1;}
-.search-meta{font-size:.6rem;color:var(--muted);text-align:center;padding:.3rem 0 0;min-height:1rem;}
+.search-x{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem;cursor:pointer;line-height:1;}
+.search-meta{font-size:.6rem;color:var(--muted);text-align:center;padding:.25rem 0 0;display:none;}
+.search-meta.son{display:block;}
 .dr.sdim{opacity:.2;}
 mark{background:#fff176;border-radius:2px;padding:0 1px;}
 </style>
@@ -152,17 +154,18 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
   <div class="dot"></div>
 </div></div>
 
-<div class="search-wrap">
+<div class="toolbar">
+  <button class="tbtn" onclick="setAll(true)">Expand all</button>
+  <button class="tbtn" onclick="setAll(false)">Collapse all</button>
+  <button class="tbtn" onclick="openSearch()" id="search-btn">🔍 Search</button>
+</div>
+
+<div class="search-wrap" id="search-wrap">
   <span class="search-ico">🔍</span>
   <input class="search-input" id="search-box" type="search" placeholder="Search the itinerary…" oninput="doSearch(this.value)" autocomplete="off"/>
   <span class="search-x" id="search-x" onclick="clearSearch()">✕</span>
 </div>
 <div class="search-meta" id="search-meta"></div>
-
-<div class="toolbar">
-  <button class="tbtn" onclick="setAll(true)">Expand all</button>
-  <button class="tbtn" onclick="setAll(false)">Collapse all</button>
-</div>
 
 <!-- TRIP MAP (collapsible) -->
 <div class="dg" id="dg-map">
@@ -921,13 +924,14 @@ function doSearch(val) {
     });
 
     if (!val) {
-      xBtn.style.display = 'none';
-      meta.textContent = '';
-      document.querySelectorAll('.dr').forEach(function(dr) { dr.classList.remove('sdim'); });
+      document.getElementById('search-x').style.display='none';
+      meta.classList.remove('son');
+      meta.textContent='';
+      document.querySelectorAll('.dr').forEach(function(dr){dr.classList.remove('sdim');});
       return;
     }
-
-    xBtn.style.display = 'block';
+    document.getElementById('search-x').style.display='block';
+    meta.classList.add('son');
     var esc = val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     var rx = new RegExp('(' + esc + ')', 'gi');
     var total = 0;
@@ -958,11 +962,19 @@ function doSearch(val) {
   }, 180);
 }
 
+function openSearch() {
+  var wrap = document.getElementById('search-wrap');
+  wrap.classList.add('son');
+  document.getElementById('search-box').focus();
+  document.getElementById('search-btn').style.display = 'none';
+}
 function clearSearch() {
   var box = document.getElementById('search-box');
   box.value = '';
   doSearch('');
-  box.focus();
+  document.getElementById('search-wrap').classList.remove('son');
+  document.getElementById('search-meta').classList.remove('son');
+  document.getElementById('search-btn').style.display = '';
 }
 </script>
 </body>

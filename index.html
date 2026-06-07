@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Trip 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f1923;--sand:#f5f0e8;--gold:#c9a84c;--gold-light:#e8d49a;
+  --ocean:#1a4a6b;--sky:#4a9bc4;--coral:#e07a5f;--coral-pale:#fae8e3;
+  --leaf:#3d6b4f;--muted:#7a8694;--card:#ffffff;--border:#e2ddd4;
+  --day-bg:#fafaf8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;padding-bottom:3rem;}
+
+/* HERO */
+.hero{background:var(--ocean);padding:2.5rem 1.25rem 2rem;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%,rgba(201,168,76,.25) 0%,transparent 60%),radial-gradient(ellipse at 10% 100%,rgba(74,155,196,.3) 0%,transparent 50%);}
+.hi{position:relative;z-index:1;}
+.eyebrow{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.5rem;font-weight:500;}
+.htitle{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;line-height:1.15;margin-bottom:.4rem;}
+.hsub{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.hstats{display:flex;gap:1.25rem;}
+.sv{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold-light);display:block;line-height:1;}
+.sl{font-size:.65rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;}
+.legbar{background:var(--ocean);padding:0 1.25rem 1.25rem;}
+.dots{display:flex;align-items:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.line{flex:1;height:1px;background:rgba(255,255,255,.2);}
+
+/* TOOLBAR */
+.toolbar{display:flex;justify-content:flex-end;gap:.5rem;padding:.85rem 1rem .25rem;}
+.tbtn{font-size:.62rem;font-weight:500;color:var(--ocean);background:#fff;border:1px solid var(--border);border-radius:20px;padding:.28rem .75rem;cursor:pointer;letter-spacing:.04em;-webkit-tap-highlight-color:transparent;}
+
+/* SECTION LABEL */
+.slabel{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:1.1rem 1.25rem .45rem;}
+
+/* ── DESTINATION GROUP ── */
+.dg{margin:0 1rem .75rem;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(15,25,35,.13);}
+.dg-head{
+  height:64px;display:flex;align-items:center;padding:0 1rem;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;
+  position:relative;
+}
+.dg-head::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.28) 0%,transparent 100%);pointer-events:none;}
+.dg-em{font-size:1.6rem;margin-right:.7rem;position:relative;z-index:1;flex-shrink:0;}
+.dg-info{flex:1;position:relative;z-index:1;min-width:0;}
+.dg-dates{font-size:.57rem;color:rgba(255,255,255,.72);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.15rem;}
+.dg-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:#fff;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.dg-chev{color:rgba(255,255,255,.85);font-size:1rem;position:relative;z-index:1;transition:transform .25s ease;margin-left:.5rem;flex-shrink:0;}
+.dg.open .dg-chev{transform:rotate(90deg);}
+.dg-body{display:none;background:#fff;}
+.dg.open .dg-body{display:block;}
+
+/* ── DAY ROW ── */
+.dr{border-top:1px solid var(--border);}
+.dr:first-child{border-top:none;}
+.dr-head{
+  height:52px;display:flex;align-items:center;
+  padding:0 1rem;gap:.65rem;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;
+  background:#fff;
+}
+.dr-stripe{width:3px;height:28px;border-radius:2px;flex-shrink:0;}
+.dr-date{font-size:.6rem;font-weight:600;color:var(--ocean);letter-spacing:.03em;min-width:62px;flex-shrink:0;line-height:1.25;}
+.dr-sum{flex:1;font-size:.71rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400;}
+.dr-chev{color:var(--muted);font-size:.78rem;flex-shrink:0;transition:transform .22s ease;}
+.dr.open .dr-chev{transform:rotate(90deg);}
+.dr-body{display:none;}
+.dr.open .dr-body{display:block;}
+.dri{padding:.8rem 1rem 1rem;border-top:1px solid var(--border);background:var(--day-bg);}
+
+/* CONTENT BLOCKS inside day */
+.cb{margin-bottom:.8rem;}
+.cb:last-child{margin-bottom:0;}
+.cb+.cb{padding-top:.75rem;border-top:1px solid var(--border);}
+.cb-lbl{font-size:.56rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.28rem;}
+.cb-title{font-size:.8rem;font-weight:500;color:var(--ink);margin-bottom:.18rem;}
+.cb-desc{font-size:.67rem;color:var(--muted);line-height:1.55;margin-bottom:.42rem;}
+.cb-warn{background:var(--coral-pale);border-radius:8px;padding:.48rem .7rem;margin-bottom:.5rem;font-size:.67rem;color:#7a2a1a;line-height:1.5;}
+.cb-warn strong{font-weight:600;}
+
+/* Mini flight in day */
+.mf{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
+.mf-ap{text-align:center;min-width:46px;}
+.mf-iata{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;line-height:1;color:var(--ink);}
+.mf-city{font-size:.56rem;color:var(--muted);margin-top:.1rem;}
+.mf-time{font-size:.65rem;font-weight:500;color:var(--ink);margin-top:.15rem;}
+.mf-mid{flex:1;text-align:center;}
+.mf-fn{font-size:.57rem;font-weight:500;color:var(--sky);letter-spacing:.05em;margin-bottom:.2rem;}
+.mf-line{display:flex;align-items:center;justify-content:center;gap:3px;}
+.mf-dash{height:1px;background:var(--border);flex:1;}
+.mf-plane{font-size:.78rem;color:var(--muted);}
+.mf-dur{font-size:.57rem;color:var(--muted);margin-top:.2rem;}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;}
+.chip{display:flex;align-items:center;gap:.28rem;background:var(--sand);border:1px solid var(--border);border-radius:7px;padding:.25rem .5rem;font-size:.61rem;color:var(--ink);font-weight:400;text-decoration:none;}
+.chip.w{background:var(--coral-pale);border-color:#f0c4b8;color:#8b3626;font-weight:500;}
+.chip.g{background:#ddeee4;border-color:#b8d9c4;color:var(--leaf);}
+.chip.bk{background:#ddeee4;border-color:#b8d9c4;color:#3d6b4f;font-weight:600;letter-spacing:.04em;}
+.chip.pr{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.35);color:#8b6914;}
+.chip.dr{background:rgba(26,74,107,.07);border-color:rgba(26,74,107,.15);color:var(--ocean);}
+.ci{font-size:.76rem;}
+
+/* overnight pill */
+.onpill{display:inline-block;background:rgba(26,74,107,.08);color:var(--ocean);font-size:.58rem;font-weight:500;padding:.13rem .48rem;border-radius:20px;margin-bottom:.5rem;}
+
+/* Baggage table */
+.bag-row{display:flex;align-items:center;padding:.65rem 1rem;gap:.7rem;border-top:1px solid var(--border);}
+.bag-row:first-child{border-top:none;}
+.bag-al{font-size:.63rem;font-weight:500;color:var(--ocean);min-width:62px;}
+.bag-rt{flex:1;font-size:.63rem;color:var(--muted);}
+.bag-kg{font-size:.68rem;font-weight:500;color:var(--ink);}
+.bag-kg.z{color:var(--coral);}
+
+footer{text-align:center;padding:1.5rem 1rem 0;font-size:.63rem;color:var(--muted);letter-spacing:.06em;}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hi">
+    <div class="eyebrow">Family Holiday · Summer 2026</div>
+    <div class="htitle">Singapore,<br>Bali &amp; Beyond</div>
+    <div class="hsub">7 July – 8 August · 4 Passengers</div>
+    <div class="hstats">
+      <div><span class="sv">6</span><span class="sl">Flights</span></div>
+      <div><span class="sv">6</span><span class="sl">Destinations</span></div>
+      <div><span class="sv">32</span><span class="sl">Nights</span></div>
+    </div>
+  </div>
+</div>
+<div class="legbar"><div class="dots">
+  <div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div>
+  <div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div>
+  <div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div>
+  <div class="dot"></div>
+</div></div>
+
+<div class="toolbar">
+  <button class="tbtn" onclick="setAll(true)">Expand all</button>
+  <button class="tbtn" onclick="setAll(false)">Collapse all</button>
+</div>
+
+<!-- ═══════ OUTBOUND ═══════ -->
+<div class="dg open" id="dg-out">
+  <div class="dg-head" style="background:linear-gradient(135deg,#0f2b42,#1a4a6b);" onclick="togDg(this)">
+    <div class="dg-em">✈️</div>
+    <div class="dg-info"><div class="dg-dates">7 July · Overnight</div><div class="dg-name">Outbound</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+
+    <!-- Tue 7 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#1a4a6b;"></div>
+        <div class="dr-date">Tue 7 Jul</div>
+        <div class="dr-sum">LHR → SIN · SQ 319 · Departs 20:35</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Singapore Airlines · SQ 319</div>
+          <div class="onpill">✦ Overnight flight</div>
+          <div class="mf">
+            <div class="mf-ap"><div class="mf-iata">LHR</div><div class="mf-city">London</div><div class="mf-time">20:35</div></div>
+            <div class="mf-mid"><div class="mf-fn">SQ 319</div><div class="mf-line"><div class="mf-dash"></div><div class="mf-plane">✈</div><div class="mf-dash"></div></div><div class="mf-dur">~13h 10m</div></div>
+            <div class="mf-ap"><div class="mf-iata">SIN</div><div class="mf-city">Singapore</div><div class="mf-time">16:45 +1</div></div>
+          </div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🛫</span> T2 → T2</div>
+            <div class="chip"><span class="ci">🧳</span> 7 kg cabin</div>
+            <div class="chip g"><span class="ci">✅</span> 30 kg checked (pp)</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ SINGAPORE ═══════ -->
+<div class="dg open" id="dg-sin">
+  <div class="dg-head" style="background:linear-gradient(135deg,#1a3a5c,#2d6a9f);" onclick="togDg(this)">
+    <div class="dg-em">🇸🇬</div>
+    <div class="dg-info"><div class="dg-dates">8 – 11 July · 3 nights · Shangri-La Hotel</div><div class="dg-name">Singapore</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+
+    <!-- Wed 8 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#2d6a9f;"></div>
+        <div class="dr-date">Wed 8 Jul</div>
+        <div class="dr-sum">Arrive SIN T2 · 🍽️ Shangri-La dinner · 🌳 Garden Rhapsody 7:45pm</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+
+        <div class="cb">
+          <div class="cb-lbl">Arrival · 16:45</div>
+          <div class="cb-title">Arrive Singapore · T2 · Check in Shangri-La Hotel</div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Dinner · 6:15pm</div>
+          <div class="cb-title">Shangri-La Hotel Restaurant</div>
+          <div class="cb-desc">Italian cuisine.</div>
+          <div class="chips">
+            <div class="chip bk"><span class="ci">✅</span> Booked</div>
+            <div class="chip"><span class="ci">📍</span> Shangri-La Hotel</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Evening · Free</div>
+          <div class="cb-title">Garden Rhapsody Light Show 🌳</div>
+          <div class="cb-desc">Supertree Grove, Gardens by the Bay. Shows at 7:45pm &amp; 8:45pm — aim for the 7:45pm show straight after dinner. Free, 15 mins.</div>
+          <div class="chips">
+            <div class="chip g"><span class="ci">🎟️</span> Free</div>
+            <div class="chip"><span class="ci">🕖</span> 7:45pm &amp; 8:45pm</div>
+            <div class="chip dr"><span class="ci">🚗</span> 16 min from Shangri-La</div>
+          </div>
+        </div>
+
+      </div></div>
+    </div>
+
+    <!-- Thu 9 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#2d6a9f;"></div>
+        <div class="dr-date">Thu 9 Jul</div>
+        <div class="dr-sum">🛍️ Orchard Rd · 🏙️ MBS SkyPark · 🍱 KOMA 7pm · ✨ Spectra 9pm</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+
+        <div class="cb">
+          <div class="cb-lbl">Breakfast</div>
+          <div class="cb-title">Shangri-La Hotel</div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Morning · Shopping</div>
+          <div class="cb-title">Orchard Road 🛍️</div>
+          <div class="chips">
+            <div class="chip dr"><span class="ci">🚗</span> 4 min from Shangri-La</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Lunch</div>
+          <div class="cb-title">Orchard Road</div>
+          <div class="cb-desc">Lunch along Orchard Road.</div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Afternoon · Observation Deck</div>
+          <div class="cb-title">Marina Bay Sands SkyPark 🏙️</div>
+          <div class="cb-desc">56 floors up. Non-peak entry closes at 4pm — book tickets in advance, entry is time-based. Lights up beautifully at night.</div>
+          <div class="chips">
+            <div class="chip pr"><span class="ci">💰</span> ~SGD $35 / adult</div>
+            <div class="chip dr"><span class="ci">🚗</span> 9 min from Orchard Rd</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Dinner · 7:00pm</div>
+          <div class="cb-title">KOMA 🍱</div>
+          <div class="cb-desc">Japanese restaurant at The Shoppes, Marina Bay Sands.</div>
+          <div class="chips">
+            <div class="chip bk"><span class="ci">✅</span> Booked</div>
+            <div class="chip"><span class="ci">📍</span> The Shoppes, MBS</div>
+            <div class="chip dr"><span class="ci">🚗</span> 2 min from MBS</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Evening · Free</div>
+          <div class="cb-title">Spectra Light &amp; Water Show ✨</div>
+          <div class="cb-desc">Free, no booking needed. Shows at 8:00pm &amp; 9:00pm — aim for the 9pm show after dinner. Best spot: Event Plaza outside The Shoppes. Arrive 15 mins early.</div>
+          <div class="chips">
+            <div class="chip g"><span class="ci">🎟️</span> Free</div>
+            <div class="chip"><span class="ci">🕘</span> 8:00pm &amp; 9:00pm</div>
+            <div class="chip dr"><span class="ci">🚗</span> 1 min from MBS</div>
+          </div>
+        </div>
+
+      </div></div>
+    </div>
+
+    <!-- Fri 10 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#2d6a9f;"></div>
+        <div class="dr-date">Fri 10 Jul</div>
+        <div class="dr-sum">🌿 Fort Canning · ☁️ Cloud Forest · 🌸 Orchid Garden · 🌱 Wildseed</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+
+        <div class="cb">
+          <div class="cb-lbl">Breakfast</div>
+          <div class="cb-title">Shangri-La Hotel</div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Morning · Walk</div>
+          <div class="cb-title">Fort Canning Park 🌿</div>
+          <div class="cb-desc">Walk through the park and visit the Canning Tree Park. Hilly paths — wear comfortable shoes.</div>
+          <div class="chips">
+            <div class="chip dr"><span class="ci">🚗</span> 8 min from Shangri-La</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Late Morning · Gardens by the Bay</div>
+          <div class="cb-title">Cloud Forest ☁️</div>
+          <div class="cb-desc">Cloud Forest dome at Gardens by the Bay. Cool inside at 23°C — bring a light layer. Allow 1–1.5 hrs. Book in advance.</div>
+          <div class="chips">
+            <div class="chip pr"><span class="ci">💰</span> ~SGD $35 / adult (incl. Flower Dome)</div>
+            <div class="chip dr"><span class="ci">🚗</span> 10 min from Fort Canning</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Lunch · Botanic Gardens</div>
+          <div class="cb-title">National Orchid Garden 🌸</div>
+          <div class="cb-desc">Allow 1.5–2 hrs. Note: 15–20 min walk from the Botanic Gardens entrance — wear comfortable shoes. Opens 8:30am.</div>
+          <div class="chips">
+            <div class="chip pr"><span class="ci">💰</span> ~SGD $15 / adult</div>
+            <div class="chip g"><span class="ci">👶</span> Under 12 free</div>
+            <div class="chip dr"><span class="ci">🚗</span> 20 min from Cloud Forest</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Afternoon</div>
+          <div class="cb-title">Explore the City</div>
+          <div class="cb-desc">Free time to explore Singapore city centre.</div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Dinner · Botanic Gardens</div>
+          <div class="cb-title">Wildseed Cafe 🌱</div>
+          <div class="cb-desc">Located at the Singapore Botanic Gardens — conveniently close to the Orchid Garden from earlier in the day.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Singapore Botanic Gardens</div>
+          </div>
+        </div>
+
+      </div></div>
+    </div>
+
+    <!-- Sat 11 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#1a4a6b;"></div>
+        <div class="dr-date">Sat 11 Jul</div>
+        <div class="dr-sum">Pack &amp; depart · SQ938 SIN → DPS · 09:15</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+
+        <div class="cb">
+          <div class="cb-lbl">Breakfast</div>
+          <div class="cb-title">Shangri-La Hotel</div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Morning</div>
+          <div class="cb-title">Pack &amp; Check Out</div>
+          <div class="chips">
+            <div class="chip w"><span class="ci">⏰</span> Leave hotel by 6:30am for 9:15am flight</div>
+          </div>
+        </div>
+
+        <div class="cb">
+          <div class="cb-lbl">Singapore Airlines · SQ 938</div>
+          <div class="mf">
+            <div class="mf-ap"><div class="mf-iata">SIN</div><div class="mf-city">Singapore</div><div class="mf-time">09:15</div></div>
+            <div class="mf-mid"><div class="mf-fn">SQ 938</div><div class="mf-line"><div class="mf-dash"></div><div class="mf-plane">✈</div><div class="mf-dash"></div></div><div class="mf-dur">~2h 45m</div></div>
+            <div class="mf-ap"><div class="mf-iata">DPS</div><div class="mf-city">Bali</div><div class="mf-time">12:00</div></div>
+          </div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🛫</span> T2 → T1</div>
+            <div class="chip"><span class="ci">🧳</span> 7 kg cabin</div>
+            <div class="chip g"><span class="ci">✅</span> 30 kg checked (pp)</div>
+          </div>
+        </div>
+
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ BALI ═══════ -->
+<div class="dg open" id="dg-bali">
+  <div class="dg-head" style="background:linear-gradient(135deg,#2a4f35,#3d6b4f);" onclick="togDg(this)">
+    <div class="dg-em">🌺</div>
+    <div class="dg-info"><div class="dg-dates">11 – 27 July · 16 nights</div><div class="dg-name">Bali</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+
+    <!-- Sat 11 Jul arrive -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#3d6b4f;"></div>
+        <div class="dr-date">Sat 11 Jul</div>
+        <div class="dr-sum">Arrive DPS T1 12:00</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Arrival</div>
+          <div class="cb-title">Bali · Denpasar Airport T1 · 12:00</div>
+          <div class="cb-desc">16 nights in Bali before heading to Gili Trawangan.</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Thu 24 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#c9a84c;"></div>
+        <div class="dr-date">Thu 24 Jul</div>
+        <div class="dr-sum">🙏 Melukat Water Blessing · Tirta Empul · 7am</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Activity · Arrive by 7am</div>
+          <div class="cb-title">Melukat Water Blessing Ceremony</div>
+          <div class="cb-desc">Sacred Balinese purification ritual at Tirta Empul Temple, Tampaksiring (30 min from Ubud). 30 holy spring waterspouts, priest blessing and offerings. Arrive by 7am — crowds build quickly after 9:30am. From April 2025 a licensed guide is required.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Tirta Empul, Tampaksiring</div>
+            <div class="chip"><span class="ci">👘</span> Sarong &amp; sash provided</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Sat 25 Jul -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#4a9bc4;"></div>
+        <div class="dr-date">Sat 25 Jul</div>
+        <div class="dr-sum">🌊 Waterbom Kuta · 🍛 Pesona Lounge dinner</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Daytime · Kuta</div>
+          <div class="cb-title">🌊 Waterbom Bali</div>
+          <div class="cb-desc">Asia's top-rated water park — slides, lazy river, kids' zones and Flow Rider surf simulator. Pre-book tickets to skip queues in peak season.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Kuta, Bali</div>
+            <div class="chip"><span class="ci">🕘</span> Opens 9am</div>
+            <a href="https://www.waterbom.com/bali/" target="_blank" onclick="event.stopPropagation()" style="text-decoration:none;"><div class="chip"><span class="ci">🔗</span> waterbom.com</div></a>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="cb-lbl">Evening · Ubud</div>
+          <div class="cb-title">🍛 Pesona Lounge Ubud</div>
+          <div class="cb-desc">Authentic North &amp; South Indian cuisine — butter chicken, lamb rogan josh, tandoori, biryani, bespoke cocktails and shisha. Same brand as Gili T resort. Open until 11pm.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Jl. Goutama Sel. No.25A, Ubud</div>
+            <a href="https://www.pesonaloungeubud.com/" target="_blank" onclick="event.stopPropagation()" style="text-decoration:none;"><div class="chip"><span class="ci">🔗</span> pesonaloungeubud.com</div></a>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Mon 27 Jul depart -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#0d6e8a;"></div>
+        <div class="dr-date">Mon 27 Jul</div>
+        <div class="dr-sum">⛵ Depart Ubud 6:15am · Fast boat to Gili T</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Boat Transfer</div>
+          <div class="cb-title">Ubud → Gili Trawangan</div>
+          <div class="cb-desc">Leave Ubud at 6:15am. Fast boat departs Bali at 8:00am, arriving Gili T around 10:00am.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🚐</span> Leave Ubud 6:15am</div>
+            <div class="chip"><span class="ci">⛵</span> Fast boat 8:00am</div>
+            <div class="chip"><span class="ci">📍</span> Arrive Gili T ~10:00am</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ GILI TRAWANGAN ═══════ -->
+<div class="dg open" id="dg-gili">
+  <div class="dg-head" style="background:linear-gradient(135deg,#0a5568,#0d6e8a);" onclick="togDg(this)">
+    <div class="dg-em">🤿</div>
+    <div class="dg-info"><div class="dg-dates">27 – 31 July · 4 nights · Pesona Beach Resort</div><div class="dg-name">Gili Trawangan</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+
+    <!-- Mon 27 Jul arrive + evening party -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#0d6e8a;"></div>
+        <div class="dr-date">Mon 27 Jul</div>
+        <div class="dr-sum">Arrive · Pesona check-in · 🎉 Evening shindig</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb-warn">⚠️ <strong>Check age policy:</strong> Pesona Beach Resort is listed as Adults Only (16+). Your children are 10 and 13 — confirm with the resort before finalising.</div>
+        <div class="cb">
+          <div class="cb-lbl">Check-in · 4 nights</div>
+          <div class="cb-title">Pesona Beach Resort &amp; Spa</div>
+          <div class="cb-desc">Beachfront resort 3 min walk from the harbour. PADI 5-star dive centre, Azure Spa, Indian restaurant. Two pools.</div>
+          <div class="chips">
+            <a href="https://www.pesonaresort.com/" target="_blank" onclick="event.stopPropagation()" style="text-decoration:none;"><div class="chip"><span class="ci">🔗</span> pesonaresort.com</div></a>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="cb-lbl">Throughout the stay · 27–31 Jul</div>
+          <div class="cb-title">🤿 Various Island Activities</div>
+          <div class="cb-desc">Snorkelling, diving, spa, beach and chilling throughout your time on Gili T.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🤿</span> Snorkelling</div>
+            <div class="chip"><span class="ci">🐠</span> Diving</div>
+            <div class="chip"><span class="ci">💆</span> Spa</div>
+            <div class="chip"><span class="ci">🏖️</span> Beach</div>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="cb-lbl">Evening · Party</div>
+          <div class="cb-title">🎉 Party at Pesona</div>
+          <div class="cb-desc">Evening shindig at Pesona Beach Resort. Dress to impress.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Pesona Beach Resort</div>
+            <div class="chip"><span class="ci">👗</span> Dress to impress</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Tue 28 Jul boat party -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#0d6e8a;"></div>
+        <div class="dr-date">Tue 28 Jul</div>
+        <div class="dr-sum">⛵ Afternoon boat party</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Afternoon · On the water</div>
+          <div class="cb-title">⛵ Boat Party</div>
+          <div class="cb-desc">Afternoon boat party around Gili Trawangan.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Gili Trawangan</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Wed 29 Jul sunset party -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#0d6e8a;"></div>
+        <div class="dr-date">Wed 29 Jul</div>
+        <div class="dr-sum">🌅 Sunset bar party · Rabbit Jump</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Evening · Sunset</div>
+          <div class="cb-title">🌅 Sunset Bar Party</div>
+          <div class="cb-desc">Sunset drinks and party at Rabbit Jump, one of Gili T's iconic sunset spots.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Rabbit Jump, Gili Trawangan</div>
+            <div class="chip"><span class="ci">🌅</span> Sunset</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Thu 30 Jul final night -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#0d6e8a;"></div>
+        <div class="dr-date">Thu 30 Jul</div>
+        <div class="dr-sum">🥳 Final night — all day celebration, spa &amp; chill</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">All Day · Pesona</div>
+          <div class="cb-title">🥳 Final Night Spontaneous Party</div>
+          <div class="cb-desc">All day celebration, spa and chill at Pesona Beach Resort — the last big night on Gili T before departing the next morning.</div>
+          <div class="chips">
+            <div class="chip"><span class="ci">📍</span> Pesona Beach Resort</div>
+            <div class="chip"><span class="ci">💆</span> Spa</div>
+            <div class="chip"><span class="ci">🎉</span> Celebrate</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Fri 31 Jul depart -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#e07a5f;"></div>
+        <div class="dr-date">Fri 31 Jul</div>
+        <div class="dr-sum">👋 Everyone goes their own way · Boat → Lombok · Wings Air 14:25</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Morning</div>
+          <div class="cb-title">👋 Everyone Goes Their Own Way</div>
+          <div class="cb-desc">Final morning on Gili T — pack up and say your goodbyes before heading to Lombok.</div>
+        </div>
+        <div class="cb">
+          <div class="cb-lbl">Morning · Transfer</div>
+          <div class="cb-title">Gili T → Lombok Harbour → LOP Airport</div>
+          <div class="cb-desc">Take morning boat from Gili T to Lombok harbour, then transfer to Lombok International Airport. Allow at least 2.5–3 hours before departure.</div>
+        </div>
+        <div class="cb">
+          <div class="cb-lbl">Wings Air · 14:25</div>
+          <div class="cb-warn">⚠️ <strong>0 kg checked baggage included</strong> — must pre-purchase online for all 4 passengers before departure.</div>
+          <div class="mf">
+            <div class="mf-ap"><div class="mf-iata">LOP</div><div class="mf-city">Lombok</div><div class="mf-time">14:25</div></div>
+            <div class="mf-mid"><div class="mf-line"><div class="mf-dash"></div><div class="mf-plane">✈</div><div class="mf-dash"></div></div><div class="mf-dur">~1h 15m</div></div>
+            <div class="mf-ap"><div class="mf-iata">LBJ</div><div class="mf-city">Labuan Bajo</div><div class="mf-time">15:40</div></div>
+          </div>
+          <div class="chips">
+            <div class="chip w"><span class="ci">⚠️</span> 0 kg checked</div>
+            <div class="chip"><span class="ci">🎒</span> 7 kg cabin (35×30×20 cm strict)</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ LABUAN BAJO ═══════ -->
+<div class="dg open" id="dg-lbj">
+  <div class="dg-head" style="background:linear-gradient(135deg,#4a1a6b,#7b4397);" onclick="togDg(this)">
+    <div class="dg-em">🐉</div>
+    <div class="dg-info"><div class="dg-dates">31 July – 3 Aug · Komodo National Park</div><div class="dg-name">Labuan Bajo</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+
+    <!-- Fri 31 Jul arrive -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#7b4397;"></div>
+        <div class="dr-date">Fri 31 Jul</div>
+        <div class="dr-sum">Arrive LBJ 15:40 · Paradise Garage villa</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Night 1 · Villa</div>
+          <div class="cb-title">Paradise Garage</div>
+          <div class="cb-desc">Luxury hillside villa in Labuan Bajo with private infinity pool and panoramic sea views over the Sumba Ocean and Komodo National Park.</div>
+          <div class="chips">
+            <a href="https://www.anyarestate.com/komodo/paradise-garage/" target="_blank" onclick="event.stopPropagation()" style="text-decoration:none;"><div class="chip"><span class="ci">🔗</span> anyarestate.com</div></a>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Sat 1 Aug liveaboard -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#0d3b5e;"></div>
+        <div class="dr-date">Sat 1 Aug</div>
+        <div class="dr-sum">⛵ Elrora Liveaboard · Komodo National Park</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Nights 2 &amp; 3 · Phinisi Liveaboard</div>
+          <div class="cb-title">Elrora Liveaboard</div>
+          <div class="cb-desc">Traditional luxury Phinisi sailing through Komodo National Park. Snorkelling, trekking to see Komodo dragons, Pink Beach, Padar Island and flying fox at Kalong Island. All meals and snorkelling gear included.</div>
+          <div class="chips">
+            <a href="https://theelrora.com/the-boats/elrora-liveaboard/" target="_blank" onclick="event.stopPropagation()" style="text-decoration:none;"><div class="chip"><span class="ci">🔗</span> theelrora.com</div></a>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Mon 3 Aug depart -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#3d6b4f;"></div>
+        <div class="dr-date">Mon 3 Aug</div>
+        <div class="dr-sum">Batik Air LBJ → DPS · Departs 13:40</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Batik Air · 13:40</div>
+          <div class="mf">
+            <div class="mf-ap"><div class="mf-iata">LBJ</div><div class="mf-city">Labuan Bajo</div><div class="mf-time">13:40</div></div>
+            <div class="mf-mid"><div class="mf-line"><div class="mf-dash"></div><div class="mf-plane">✈</div><div class="mf-dash"></div></div><div class="mf-dur">~1h 10m</div></div>
+            <div class="mf-ap"><div class="mf-iata">DPS</div><div class="mf-city">Bali</div><div class="mf-time">14:50</div></div>
+          </div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🧳</span> 7 kg cabin (40×30×20 cm)</div>
+            <div class="chip g"><span class="ci">✅</span> 20 kg checked (pp)</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ BALI RETURN ═══════ -->
+<div class="dg open" id="dg-bali2">
+  <div class="dg-head" style="background:linear-gradient(135deg,#1f3d2a,#3d6b4f);" onclick="togDg(this)">
+    <div class="dg-em">🌅</div>
+    <div class="dg-info"><div class="dg-dates">3 – 7 August · 4 nights</div><div class="dg-name">Bali</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+
+    <!-- Mon 3 Aug arrive -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#3d6b4f;"></div>
+        <div class="dr-date">Mon 3 Aug</div>
+        <div class="dr-sum">Arrive DPS 14:50 · 4 nights</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Arrival</div>
+          <div class="cb-title">Bali · Denpasar Airport · 14:50</div>
+          <div class="cb-desc">Final 4 nights in Bali before the homebound journey.</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Fri 7 Aug depart -->
+    <div class="dr">
+      <div class="dr-head" onclick="togDr(this)">
+        <div class="dr-stripe" style="background:#1a4a6b;"></div>
+        <div class="dr-date">Fri 7 Aug</div>
+        <div class="dr-sum">DPS→SIN SQ939 13:15 · SIN→LHR SQ322 23:00</div>
+        <div class="dr-chev">›</div>
+      </div>
+      <div class="dr-body"><div class="dri">
+        <div class="cb">
+          <div class="cb-lbl">Singapore Airlines · SQ 939</div>
+          <div class="mf">
+            <div class="mf-ap"><div class="mf-iata">DPS</div><div class="mf-city">Bali</div><div class="mf-time">13:15</div></div>
+            <div class="mf-mid"><div class="mf-fn">SQ 939</div><div class="mf-line"><div class="mf-dash"></div><div class="mf-plane">✈</div><div class="mf-dash"></div></div><div class="mf-dur">~2h 45m</div></div>
+            <div class="mf-ap"><div class="mf-iata">SIN</div><div class="mf-city">Singapore</div><div class="mf-time">16:00</div></div>
+          </div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🛫</span> T1 → T3</div>
+            <div class="chip g"><span class="ci">✅</span> 30 kg checked (pp)</div>
+          </div>
+        </div>
+        <div class="cb">
+          <div class="cb-lbl">Singapore Airlines · SQ 322</div>
+          <div class="onpill">✦ Overnight flight</div>
+          <div class="mf">
+            <div class="mf-ap"><div class="mf-iata">SIN</div><div class="mf-city">Singapore</div><div class="mf-time">23:00</div></div>
+            <div class="mf-mid"><div class="mf-fn">SQ 322</div><div class="mf-line"><div class="mf-dash"></div><div class="mf-plane">✈</div><div class="mf-dash"></div></div><div class="mf-dur">~13h 55m</div></div>
+            <div class="mf-ap"><div class="mf-iata">LHR</div><div class="mf-city">London</div><div class="mf-time">05:55 +1</div></div>
+          </div>
+          <div class="chips">
+            <div class="chip"><span class="ci">🛫</span> T3 → T2</div>
+            <div class="chip g"><span class="ci">✅</span> 30 kg checked (pp)</div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ BAGGAGE SUMMARY ═══════ -->
+<div class="slabel">Baggage Summary · Per Person</div>
+<div class="dg open" id="dg-bag">
+  <div class="dg-head" style="background:linear-gradient(135deg,#3a4a56,#7a8694);" onclick="togDg(this)">
+    <div class="dg-em">🧳</div>
+    <div class="dg-info"><div class="dg-dates">All 6 flights</div><div class="dg-name">Baggage Allowances</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <div class="bag-row"><div class="bag-al">SQ 319</div><div class="bag-rt">LHR → SIN</div><div class="bag-kg">30 kg ✅</div></div>
+    <div class="bag-row"><div class="bag-al">SQ 938</div><div class="bag-rt">SIN → DPS</div><div class="bag-kg">30 kg ✅</div></div>
+    <div class="bag-row"><div class="bag-al">Wings Air</div><div class="bag-rt">LOP → LBJ</div><div class="bag-kg z">0 kg ⚠️</div></div>
+    <div class="bag-row"><div class="bag-al">Batik Air</div><div class="bag-rt">LBJ → DPS</div><div class="bag-kg">20 kg ✅</div></div>
+    <div class="bag-row"><div class="bag-al">SQ 939</div><div class="bag-rt">DPS → SIN</div><div class="bag-kg">30 kg ✅</div></div>
+    <div class="bag-row"><div class="bag-al">SQ 322</div><div class="bag-rt">SIN → LHR</div><div class="bag-kg">30 kg ✅</div></div>
+  </div>
+</div>
+
+<footer>Gupta Family · July – August 2026 · 4 Passengers</footer>
+
+<script>
+function togDg(head) { head.parentElement.classList.toggle('open'); }
+function togDr(head) { head.parentElement.classList.toggle('open'); }
+function setAll(open) {
+  document.querySelectorAll('.dg').forEach(el => el.classList[open ? 'add' : 'remove']('open'));
+  document.querySelectorAll('.dr').forEach(el => el.classList[open ? 'add' : 'remove']('open'));
+}
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Family Trip 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 :root{
   --ink:#0f1923;--sand:#f5f0e8;--gold:#c9a84c;--gold-light:#e8d49a;
@@ -145,6 +146,10 @@ footer{text-align:center;padding:1.5rem 1rem 0;font-size:.63rem;color:var(--mute
   <button class="tbtn" onclick="setAll(true)">Expand all</button>
   <button class="tbtn" onclick="setAll(false)">Collapse all</button>
 </div>
+
+<!-- TRIP MAP -->
+<div class="slabel" style="padding-top:0.85rem;">Trip Overview</div>
+<div id="trip-map" style="height:280px;margin:0 1rem 0.85rem;border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(15,25,35,.13);"></div>
 
 <!-- ═══════ OUTBOUND ═══════ -->
 <div class="dg open" id="dg-out">
@@ -828,6 +833,37 @@ function setAll(open) {
   document.querySelectorAll('.dg').forEach(el => el.classList[open ? 'add' : 'remove']('open'));
   document.querySelectorAll('.dr').forEach(el => el.classList[open ? 'add' : 'remove']('open'));
 }
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+var map = L.map('trip-map', {zoomControl:true, scrollWheelZoom:false}).setView([-4, 114], 4);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution:'© OpenStreetMap'
+}).addTo(map);
+
+var stops = [
+  {n:'🇸🇬 Singapore · 8–11 Jul',      lat:1.3110,  lng:103.8265, c:'#2d6a9f'},
+  {n:'🌺 Bali (Ubud) · 11–27 Jul',    lat:-8.5069, lng:115.2625, c:'#3d6b4f'},
+  {n:'🙏 Tirta Empul · 24 Jul',        lat:-8.4157, lng:115.3153, c:'#c9a84c'},
+  {n:'🌊 Waterbom Kuta · 25 Jul',      lat:-8.7286, lng:115.1693, c:'#4a9bc4'},
+  {n:'🤿 Gili Trawangan · 27–31 Jul',  lat:-8.3558, lng:116.0423, c:'#0d6e8a'},
+  {n:'✈️ Lombok Airport · 31 Jul',     lat:-8.7607, lng:116.2755, c:'#e07a5f'},
+  {n:'🐉 Labuan Bajo · 31 Jul–3 Aug',  lat:-8.4925, lng:119.8773, c:'#7b4397'},
+  {n:'⛵ Komodo National Park',         lat:-8.5277, lng:119.4833, c:'#0d3b5e'},
+  {n:'🌅 Hyatt Regency Sanur · 3–7 Aug',lat:-8.7022,lng:115.2632, c:'#3d6b4f'},
+];
+
+L.polyline(stops.map(s=>[s.lat,s.lng]),{color:'#c9a84c',weight:2,dashArray:'6,6',opacity:0.75}).addTo(map);
+
+stops.forEach(function(s,i){
+  var icon = L.divIcon({
+    className:'',
+    html:'<div style="width:22px;height:22px;border-radius:50%;background:'+s.c+';border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;">'+(i+1)+'</div>',
+    iconSize:[22,22],iconAnchor:[11,11]
+  });
+  L.marker([s.lat,s.lng],{icon:icon}).addTo(map)
+    .bindPopup('<div style="font-family:DM Sans,sans-serif;font-size:12px;font-weight:500;">'+s.n+'</div>');
+});
 </script>
 </body>
 </html>

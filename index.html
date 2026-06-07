@@ -118,6 +118,16 @@ body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;fo
 .bag-kg.z{color:var(--coral);}
 
 footer{text-align:center;padding:1.5rem 1rem 0;font-size:.63rem;color:var(--muted);letter-spacing:.06em;}
+
+/* SEARCH */
+.search-wrap{margin:0.75rem 1rem 0;position:relative;}
+.search-input{width:100%;padding:.55rem 2.2rem .55rem 2.2rem;border:1.5px solid var(--border);border-radius:10px;font-size:.75rem;font-family:'DM Sans',sans-serif;background:#fff;color:var(--ink);outline:none;-webkit-appearance:none;}
+.search-input:focus{border-color:var(--ocean);}
+.search-ico{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem;pointer-events:none;}
+.search-x{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem;cursor:pointer;display:none;line-height:1;}
+.search-meta{font-size:.6rem;color:var(--muted);text-align:center;padding:.3rem 0 0;min-height:1rem;}
+.dr.sdim{opacity:.2;}
+mark{background:#fff176;border-radius:2px;padding:0 1px;}
 </style>
 </head>
 <body>
@@ -141,6 +151,13 @@ footer{text-align:center;padding:1.5rem 1rem 0;font-size:.63rem;color:var(--mute
   <div class="dot"></div><div class="line"></div><div class="dot"></div><div class="line"></div>
   <div class="dot"></div>
 </div></div>
+
+<div class="search-wrap">
+  <span class="search-ico">🔍</span>
+  <input class="search-input" id="search-box" type="search" placeholder="Search the itinerary…" oninput="doSearch(this.value)" autocomplete="off"/>
+  <span class="search-x" id="search-x" onclick="clearSearch()">✕</span>
+</div>
+<div class="search-meta" id="search-meta"></div>
 
 <div class="toolbar">
   <button class="tbtn" onclick="setAll(true)">Expand all</button>
@@ -872,15 +889,80 @@ function initMap() {
 function togMap(head) {
   const dg = head.parentElement;
   dg.classList.toggle('open');
-  if (dg.classList.contains('open')) {
-    if (!mapReady) { setTimeout(initMap, 50); }
-  }
+  if (dg.classList.contains('open') && !mapReady) { setTimeout(initMap, 50); }
 }
 function togDg(head) { head.parentElement.classList.toggle('open'); }
 function togDr(head) { head.parentElement.classList.toggle('open'); }
 function setAll(open) {
   document.querySelectorAll('.dg:not(#dg-map)').forEach(el=>el.classList[open?'add':'remove']('open'));
   document.querySelectorAll('.dr').forEach(el=>el.classList[open?'add':'remove']('open'));
+}
+
+/* ── SEARCH ── */
+var searchTimer;
+// Store original summaries once DOM ready
+window.addEventListener('load', function() {
+  document.querySelectorAll('.dr-sum').forEach(function(el) {
+    el.dataset.orig = el.innerHTML;
+  });
+});
+
+function doSearch(val) {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(function() {
+    val = val.trim();
+    var lc = val.toLowerCase();
+    var xBtn = document.getElementById('search-x');
+    var meta = document.getElementById('search-meta');
+
+    // Restore all summaries first
+    document.querySelectorAll('.dr-sum').forEach(function(el) {
+      if (el.dataset.orig) el.innerHTML = el.dataset.orig;
+    });
+
+    if (!val) {
+      xBtn.style.display = 'none';
+      meta.textContent = '';
+      document.querySelectorAll('.dr').forEach(function(dr) { dr.classList.remove('sdim'); });
+      return;
+    }
+
+    xBtn.style.display = 'block';
+    var esc = val.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var rx = new RegExp('(' + esc + ')', 'gi');
+    var total = 0;
+
+    document.querySelectorAll('.dg:not(#dg-map)').forEach(function(dg) {
+      var dgMatch = false;
+      dg.querySelectorAll('.dr').forEach(function(dr) {
+        var txt = dr.textContent.toLowerCase();
+        if (txt.includes(lc)) {
+          dr.classList.remove('sdim');
+          dr.classList.add('open');
+          dg.classList.add('open');
+          dgMatch = true;
+          total++;
+          // Highlight in summary
+          var sumEl = dr.querySelector('.dr-sum');
+          if (sumEl && sumEl.dataset.orig) {
+            sumEl.innerHTML = sumEl.dataset.orig.replace(rx, '<mark>$1</mark>');
+          }
+        } else {
+          dr.classList.add('sdim');
+          dr.classList.remove('open');
+        }
+      });
+    });
+
+    meta.textContent = total ? total + ' match' + (total > 1 ? 'es' : '') + ' for "' + val + '"' : 'No matches found';
+  }, 180);
+}
+
+function clearSearch() {
+  var box = document.getElementById('search-box');
+  box.value = '';
+  doSearch('');
+  box.focus();
 }
 </script>
 </body>

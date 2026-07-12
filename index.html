@@ -22,15 +22,15 @@
 body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;padding-bottom:3rem;}
 
 /* HERO */
-.hero{background:var(--ocean);padding:2.5rem 1.25rem 2rem;position:relative;overflow:hidden;}
+.hero{background:var(--ocean);padding:1rem 1.25rem 0.85rem;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 0%,rgba(201,168,76,.25) 0%,transparent 60%),radial-gradient(ellipse at 10% 100%,rgba(74,155,196,.3) 0%,transparent 50%);}
 .hi{position:relative;z-index:1;}
-.eyebrow{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.5rem;font-weight:500;}
-.htitle{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;line-height:1.15;margin-bottom:.4rem;}
-.hsub{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.eyebrow{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.25rem;font-weight:500;}
+.htitle{font-family:'Playfair Display',serif;font-size:1.35rem;color:#fff;line-height:1.15;margin-bottom:.2rem;}
+.hsub{color:rgba(255,255,255,.6);font-size:.7rem;margin-bottom:.85rem;}
 .hstats{display:flex;gap:1.25rem;}
-.sv{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold-light);display:block;line-height:1;}
-.sl{font-size:.65rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;}
+.sv{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-light);display:block;line-height:1;}
+.sl{font-size:.56rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;}
 .legbar{background:var(--ocean);padding:0 1.25rem 1.25rem;}
 .dots{display:flex;align-items:center;}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
@@ -163,6 +163,15 @@ html.dark .dr.is-today .dr-head{background:rgba(201,168,76,.15);}
 html.dark .dm-btn{background:#2a4a6a;}
 
 /* WEATHER */
+
+/* QUICK TILES */
+.qtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:.6rem 1rem .2rem;}
+.qt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.55rem .25rem .45rem;text-align:center;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:.15rem;-webkit-tap-highlight-color:transparent;user-select:none;}
+.qt:active{opacity:.65;}
+.qt-em{font-size:1.15rem;}
+.qt-lb{font-size:.5rem;color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;}
+html.dark .qt{background:var(--card);border-color:var(--border);}
+
 .weather-chip{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:.25rem .7rem;font-size:.7rem;color:rgba(255,255,255,.92);margin-top:.6rem;cursor:default;}
 
 /* CURRENCY */
@@ -268,46 +277,22 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
   </div>
 </div>
 
-<!-- ═══════ CURRENCY CONVERTER ═══════ -->
-<div class="dg" id="dg-cc">
-  <div class="dg-head" style="background:linear-gradient(135deg,#1a3a2a,#2d6a4a);" onclick="togDg(this)">
-    <div class="dg-em">💱</div>
-    <div class="dg-info"><div class="dg-dates">GBP · SGD · IDR · Live conversion</div><div class="dg-name">Currency Converter</div></div>
-    <div class="dg-chev">›</div>
+<div class="qtiles">
+  <div class="qt" onclick="jumpTo('dg-bahasa')">
+    <div class="qt-em">🇮🇩</div>
+    <div class="qt-lb">Bahasa</div>
   </div>
-  <div class="dg-body">
-    <div class="cc-wrap">
-      <div class="cc-top">
-        <input class="cc-input" id="cc-amt" type="number" value="100" min="0" oninput="calcCC()">
-        <select class="cc-sel" id="cc-from" onchange="calcCC()">
-          <option value="GBP">£ GBP</option>
-          <option value="SGD">$ SGD</option>
-          <option value="IDR">Rp IDR</option>
-        </select>
-      </div>
-      <div id="cc-out"></div>
-      <div class="cc-note">Rates approximate · GBP/IDR ~20,500 · GBP/SGD ~1.70 · SGD/IDR ~12,050</div>
-    </div>
+  <div class="qt" onclick="jumpTo('dg-pre')">
+    <div class="qt-em">📋</div>
+    <div class="qt-lb">Pre-Trip</div>
   </div>
-</div>
-
-<!-- ═══════ EMERGENCY CONTACTS ═══════ -->
-<div class="dg" id="dg-em">
-  <div class="dg-head" style="background:linear-gradient(135deg,#8b0000,#c0392b);" onclick="togDg(this)">
-    <div class="dg-em">🚨</div>
-    <div class="dg-info"><div class="dg-dates">Police · Ambulance · Hospitals · Embassy</div><div class="dg-name">Emergency Contacts</div></div>
-    <div class="dg-chev">›</div>
-  </div>
-  <div class="dg-body">
-    <div class="em-row"><div class="em-ico">🆘</div><div><div class="em-lbl">Indonesia Emergency</div><a class="em-call" href="tel:112">112 — Police, ambulance, fire</a></div></div>
-    <div class="em-row"><div class="em-ico">🏥</div><div><div class="em-lbl">BIMC Hospital Bali (24hr)</div><a class="em-call" href="tel:+62361761263">+62 361 761 263</a></div></div>
-    <div class="em-row"><div class="em-ico">🏥</div><div><div class="em-lbl">Siloam Hospital Bali</div><a class="em-call" href="tel:+62361779900">+62 361 779 900</a></div></div>
-    <div class="em-row"><div class="em-ico">🇬🇧</div><div><div class="em-lbl">UK Embassy Jakarta</div><a class="em-call" href="tel:+62212356520">+62 21 2356 5200</a></div></div>
-    <div class="em-row"><div class="em-ico">🇬🇧</div><div><div class="em-lbl">UK Consulate Bali (consular emergencies)</div><a class="em-call" href="tel:+62215265551">+62 21 5265 5551</a></div></div>
-    <div class="em-row"><div class="em-ico">🆘</div><div><div class="em-lbl">Singapore Emergency</div><a class="em-call" href="tel:999">999 — Police &nbsp;·&nbsp; 995 — Ambulance</a></div></div>
-    <div class="em-row"><div class="em-ico">🏨</div><div><div class="em-lbl">Shangri-La Hotel Singapore</div><a class="em-call" href="tel:+6567373644">+65 6737 3644</a></div></div>
-    <div class="em-row"><div class="em-ico">🏨</div><div><div class="em-lbl">Hyatt Regency Sanur</div><a class="em-call" href="tel:+62361281234">+62 361 281 234</a></div></div>
-    <div class="em-row"><div class="em-ico">✈️</div><div><div class="em-lbl">Singapore Airlines</div><a class="em-call" href="tel:+6562238888">+65 6223 8888</a></div></div>
+  <a class="qt" href="https://lovely-gelato-543499.netlify.app/" style="text-decoration:none;">
+    <div class="qt-em">💱</div>
+    <div class="qt-lb">Currency</div>
+  </a>
+  <div class="qt" onclick="jumpTo('dg-map')">
+    <div class="qt-em">🗺️</div>
+    <div class="qt-lb">Map</div>
   </div>
 </div>
 
@@ -1251,6 +1236,26 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
   </div>
 </div>
 
+<!-- ═══════ EMERGENCY CONTACTS ═══════ -->
+<div class="dg" id="dg-em">
+  <div class="dg-head" style="background:linear-gradient(135deg,#8b0000,#c0392b);" onclick="togDg(this)">
+    <div class="dg-em">🚨</div>
+    <div class="dg-info"><div class="dg-dates">Police · Ambulance · Hospitals · Embassy</div><div class="dg-name">Emergency Contacts</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <div class="em-row"><div class="em-ico">🆘</div><div><div class="em-lbl">Indonesia Emergency</div><a class="em-call" href="tel:112">112 — Police, ambulance, fire</a></div></div>
+    <div class="em-row"><div class="em-ico">🏥</div><div><div class="em-lbl">BIMC Hospital Bali (24hr)</div><a class="em-call" href="tel:+62361761263">+62 361 761 263</a></div></div>
+    <div class="em-row"><div class="em-ico">🏥</div><div><div class="em-lbl">Siloam Hospital Bali</div><a class="em-call" href="tel:+62361779900">+62 361 779 900</a></div></div>
+    <div class="em-row"><div class="em-ico">🇬🇧</div><div><div class="em-lbl">UK Embassy Jakarta</div><a class="em-call" href="tel:+62212356520">+62 21 2356 5200</a></div></div>
+    <div class="em-row"><div class="em-ico">🇬🇧</div><div><div class="em-lbl">UK Consulate Bali (consular emergencies)</div><a class="em-call" href="tel:+62215265551">+62 21 5265 5551</a></div></div>
+    <div class="em-row"><div class="em-ico">🆘</div><div><div class="em-lbl">Singapore Emergency</div><a class="em-call" href="tel:999">999 — Police &nbsp;·&nbsp; 995 — Ambulance</a></div></div>
+    <div class="em-row"><div class="em-ico">🏨</div><div><div class="em-lbl">Shangri-La Hotel Singapore</div><a class="em-call" href="tel:+6567373644">+65 6737 3644</a></div></div>
+    <div class="em-row"><div class="em-ico">🏨</div><div><div class="em-lbl">Hyatt Regency Sanur</div><a class="em-call" href="tel:+62361281234">+62 361 281 234</a></div></div>
+    <div class="em-row"><div class="em-ico">✈️</div><div><div class="em-lbl">Singapore Airlines</div><a class="em-call" href="tel:+6562238888">+65 6223 8888</a></div></div>
+  </div>
+</div>
+
 <!-- ═══════ FEEDBACK ═══════ -->
 <div class="slabel">💬 Leave a Suggestion</div>
 <div class="dg" id="dg-fb">
@@ -1376,6 +1381,13 @@ window.addEventListener('load', function(){
 });
 
 /* ── JUMP TO TODAY ── */
+function jumpTo(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.classList.add('open');
+  if(id==='dg-map'&&!mapReady) setTimeout(initMap,80);
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
 function jumpToToday(){
   const today = new Date(); today.setHours(0,0,0,0);
   let target = null, closest = null, closestDiff = Infinity;

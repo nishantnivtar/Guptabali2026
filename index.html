@@ -307,7 +307,7 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
     <div class="qt-lb">Bahasa</div>
     <div class="qt-sub">Indonesia</div>
   </div>
-  <div class="qt" style="background:linear-gradient(135deg,#181e2a,#252f40);" onclick="jumpTo('dg-pre')">
+  <div class="qt" style="background:linear-gradient(135deg,#181e2a,#252f40);" onclick="togSection('dg-pre')">
     <div class="qt-em">📋</div>
     <div class="qt-lb">Pre-Trip</div>
     <div class="qt-sub">Visas &amp; flights</div>
@@ -351,7 +351,7 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
 </div>
 
 <!-- ═══════ PRE-TRIP ═══════ -->
-<div class="dg" id="dg-pre">
+<div class="dg" id="dg-pre" style="display:none;">
   <div class="dg-head" style="background:linear-gradient(135deg,#0f2b42,#1a4a6b);" onclick="togDg(this)">
     <div class="dg-em">📋</div>
     <div class="dg-info"><div class="dg-dates">Visas · Outbound · Singapore · Done ✅</div><div class="dg-name">Pre-Trip</div></div>
@@ -1416,12 +1416,14 @@ window.addEventListener('load', function(){
 });
 
 /* ── JUMP TO TODAY ── */
-function togBahasa(){
-  const el=document.getElementById('dg-bahasa');
-  const visible=el.style.display!=='none';
+function togSection(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  const visible=el.style.display!=='none'&&el.style.display!=='';
   el.style.display=visible?'none':'block';
   if(!visible) setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60);
 }
+function togBahasa(){ togSection('dg-bahasa'); }
 function jumpTo(id){
   const el=document.getElementById(id);
   if(!el) return;

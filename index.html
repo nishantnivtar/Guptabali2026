@@ -27,7 +27,7 @@ body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;fo
 .hi{position:relative;z-index:1;}
 .eyebrow{font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.25rem;font-weight:500;}
 .htitle{font-family:'Playfair Display',serif;font-size:1.35rem;color:#fff;line-height:1.15;margin-bottom:.2rem;}
-.hsub{color:rgba(255,255,255,.6);font-size:.7rem;margin-bottom:.85rem;}
+.hsub{display:none;}
 .hstats{display:flex;gap:1.25rem;}
 .sv{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-light);display:block;line-height:1;}
 .sl{font-size:.56rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;}
@@ -165,12 +165,25 @@ html.dark .dm-btn{background:#2a4a6a;}
 /* WEATHER */
 
 /* QUICK TILES */
-.qtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:.6rem 1rem .2rem;}
-.qt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.55rem .25rem .45rem;text-align:center;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:.15rem;-webkit-tap-highlight-color:transparent;user-select:none;}
-.qt:active{opacity:.65;}
-.qt-em{font-size:1.15rem;}
-.qt-lb{font-size:.5rem;color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:uppercase;line-height:1.2;}
-html.dark .qt{background:var(--card);border-color:var(--border);}
+.qtiles{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin:.55rem 1rem .1rem;}
+.qt{
+  border-radius:11px;overflow:hidden;height:62px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;
+  padding:.4rem .5rem;position:relative;cursor:pointer;text-decoration:none;
+  -webkit-tap-highlight-color:transparent;user-select:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.qt::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45) 0%,transparent 65%);pointer-events:none;}
+.qt:active{opacity:.72;}
+.qt-em{position:absolute;top:.32rem;right:.38rem;font-size:1.15rem;opacity:.75;z-index:1;}
+.qt-lb{font-family:'Playfair Display',serif;font-size:.58rem;font-weight:700;color:#fff;position:relative;z-index:1;line-height:1;text-shadow:0 1px 4px rgba(0,0,0,.4);}
+.qt-sub{font-size:.46rem;color:rgba(255,255,255,.6);position:relative;z-index:1;margin-top:.12rem;line-height:1;}
+
+
+.hero-row1{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;}
+.hero-date{font-size:.65rem;color:rgba(255,255,255,.55);margin:.15rem 0 .55rem;letter-spacing:.04em;font-weight:400;}
+.hstats{display:flex;gap:1rem;}
+.weather-chip{flex-shrink:0;margin-top:0;}
 
 .weather-chip{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:.25rem .7rem;font-size:.7rem;color:rgba(255,255,255,.92);margin-top:.6rem;cursor:default;}
 
@@ -232,15 +245,19 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
 <!-- HERO -->
 <div class="hero">
   <div class="hi">
-    <div class="eyebrow">Family Holiday · Summer 2026</div>
-    <div class="htitle">Singapore,<br>Bali &amp; Beyond</div>
-    <div class="hsub">7 July – 8 August · 4 Passengers</div>
-    <div class="hstats">
-      <div><span class="sv">6</span><span class="sl">Flights</span></div>
-      <div><span class="sv">6</span><span class="sl">Destinations</span></div>
-      <div><span class="sv" id="countdown-num">32</span><span class="sl" id="countdown-lbl">Nights</span></div>
+    <div class="hero-row1">
+      <div>
+        <div class="eyebrow">Gupta Family · 2026</div>
+        <div class="htitle">Bali &amp; Beyond</div>
+      </div>
+      <div class="weather-chip" id="weather-chip">🌤️ --</div>
     </div>
-    <div class="weather-chip" id="weather-chip">🌤️ Loading weather…</div>
+    <div class="hero-date" id="hero-date"></div>
+    <div class="hstats">
+      <div><span class="sv" id="stat-done">0</span><span class="sl">nights done</span></div>
+      <div><span class="sv" id="stat-left">32</span><span class="sl">nights left</span></div>
+      <div><span class="sv" id="stat-fl">0/6</span><span class="sl">flights</span></div>
+    </div>
   </div>
 </div>
 <div class="legbar"><div class="dots">
@@ -265,34 +282,26 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
 </div>
 <div class="search-meta" id="search-meta"></div>
 
-<!-- TRIP MAP (collapsible) -->
-<div class="dg" id="dg-map">
-  <div class="dg-head" style="background:linear-gradient(135deg,#2a3a4a,#3a5a6a);" onclick="togMap(this)">
-    <div class="dg-em">🗺️</div>
-    <div class="dg-info"><div class="dg-dates">All destinations · 9 stops</div><div class="dg-name">Trip Overview Map</div></div>
-    <div class="dg-chev">›</div>
-  </div>
-  <div class="dg-body">
-    <div id="trip-map" style="height:280px;"></div>
-  </div>
-</div>
-
 <div class="qtiles">
-  <div class="qt" onclick="jumpTo('dg-bahasa')">
+  <div class="qt" style="background:linear-gradient(135deg,#8b0000,#c0392b);" onclick="jumpTo('dg-bahasa')">
     <div class="qt-em">🇮🇩</div>
     <div class="qt-lb">Bahasa</div>
+    <div class="qt-sub">Indonesia</div>
   </div>
-  <div class="qt" onclick="jumpTo('dg-pre')">
+  <div class="qt" style="background:linear-gradient(135deg,#181e2a,#252f40);" onclick="jumpTo('dg-pre')">
     <div class="qt-em">📋</div>
     <div class="qt-lb">Pre-Trip</div>
+    <div class="qt-sub">Visas &amp; flights</div>
   </div>
-  <a class="qt" href="https://lovely-gelato-543499.netlify.app/" style="text-decoration:none;">
+  <a class="qt" style="background:linear-gradient(135deg,#1a3a2a,#2d6a4a);text-decoration:none;" href="https://lovely-gelato-543499.netlify.app/">
     <div class="qt-em">💱</div>
     <div class="qt-lb">Currency</div>
+    <div class="qt-sub">£ · Rp · S$</div>
   </a>
-  <div class="qt" onclick="jumpTo('dg-map')">
+  <div class="qt" style="background:linear-gradient(135deg,#0f2b42,#1a4a6b);" onclick="jumpTo('dg-map')">
     <div class="qt-em">🗺️</div>
     <div class="qt-lb">Map</div>
+    <div class="qt-sub">9 stops</div>
   </div>
 </div>
 
@@ -1285,6 +1294,18 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
   </div>
 </div>
 
+<!-- TRIP MAP (collapsible) -->
+<div class="dg" id="dg-map">
+  <div class="dg-head" style="background:linear-gradient(135deg,#2a3a4a,#3a5a6a);" onclick="togMap(this)">
+    <div class="dg-em">🗺️</div>
+    <div class="dg-info"><div class="dg-dates">All destinations · 9 stops</div><div class="dg-name">Trip Overview Map</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <div id="trip-map" style="height:280px;"></div>
+  </div>
+</div>
+
 <footer>Gupta Family · July – August 2026 · 4 Passengers<br><span style="font-size:.55rem;opacity:.6;">Last updated: 7 June 2026</span></footer>
 
 <script>
@@ -1375,7 +1396,7 @@ window.addEventListener('load', function(){
       foundToday = true;
     }
   });
-  updateCountdown();
+  updateHero();
   loadWeather();
   calcCC();
 });
@@ -1406,24 +1427,27 @@ function jumpToToday(){
   setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}), 80);
 }
 
-/* ── COUNTDOWN ── */
-function updateCountdown(){
-  const now = new Date();
-  const destinations = [
-    {name:'to Bali',date:new Date(2026,6,11)},
-    {name:'to Gili T',date:new Date(2026,6,27)},
-    {name:'to Labuan Bajo',date:new Date(2026,6,31)},
-    {name:'to Sanur',date:new Date(2026,7,3)},
-    {name:'home',date:new Date(2026,7,7)},
-  ];
-  const numEl = document.getElementById('countdown-num');
-  const lblEl = document.getElementById('countdown-lbl');
-  if(!numEl) return;
-  for(const d of destinations){
-    const diff = Math.ceil((d.date - now) / 86400000);
-    if(diff > 0){ numEl.textContent=diff; lblEl.textContent='days '+d.name; return; }
+/* ── HERO STATS ── */
+function updateHero(){
+  const now = new Date(); now.setHours(0,0,0,0);
+  const DAY = 86400000;
+  const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const MONS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dateEl = document.getElementById('hero-date');
+  if(dateEl){
+    const t = new Date();
+    dateEl.textContent = DAYS[t.getDay()]+' '+t.getDate()+' '+MONS[t.getMonth()]+' '+t.getFullYear();
   }
-  numEl.textContent='🎉'; lblEl.textContent='Trip done!';
+  const start = new Date(2026,6,7); start.setHours(0,0,0,0);
+  const nightsDone = Math.max(0,Math.min(32,Math.floor((now-start)/DAY)));
+  const el1=document.getElementById('stat-done');
+  const el2=document.getElementById('stat-left');
+  const el3=document.getElementById('stat-fl');
+  if(el1) el1.textContent=nightsDone;
+  if(el2) el2.textContent=Math.max(0,32-nightsDone);
+  const fDates=[new Date(2026,6,7),new Date(2026,6,11),new Date(2026,6,31),new Date(2026,7,3),new Date(2026,7,7),new Date(2026,7,7)];
+  const done=fDates.filter(d=>{d.setHours(0,0,0,0);return d<=now;}).length;
+  if(el3) el3.textContent=done+'/6';
 }
 
 /* ── WEATHER ── */

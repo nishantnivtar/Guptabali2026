@@ -122,6 +122,87 @@ body{background:var(--sand);color:var(--ink);font-family:'DM Sans',sans-serif;fo
 .bag-kg{font-size:.68rem;font-weight:500;color:var(--ink);}
 .bag-kg.z{color:var(--coral);}
 
+
+/* DARK MODE */
+html.dark{--sand:#0d1720;--card:#152030;--border:#243040;--muted:#8a9aaa;--ink:#dde8f0;--day-bg:#101c28;}
+html.dark body{background:var(--sand);}
+html.dark .hero{background:#0a1520;}
+html.dark .dr-head{background:var(--card);}
+html.dark .dg-body{background:var(--card);}
+html.dark .dri{background:var(--day-bg);}
+html.dark .cb+.cb{border-color:var(--border);}
+html.dark .chip{background:#1a2d3d;border-color:var(--border);color:var(--ink);}
+html.dark .chip.g{background:#152a20;border-color:#254a38;color:#7dd4a0;}
+html.dark .chip.bk{background:#152a20;border-color:#254a38;color:#7dd4a0;}
+html.dark .chip.pr{background:#2a2010;border-color:#4a3818;color:#c8a84c;}
+html.dark .chip.dr{background:#0d1e30;border-color:#1a3050;color:#6a9fc8;}
+html.dark .chip.w{background:#3a1510;border-color:#6a2318;color:#f0a090;}
+html.dark .chip.wa{background:#152a18;border-color:#254a28;color:#7dba80;}
+html.dark .chip.cal{background:#151a40;border-color:#252a60;color:#8090d8;}
+html.dark .warn-inner{background:#2a1510;}
+html.dark .tbtn{background:var(--card);border-color:var(--border);color:#8ab4d0;}
+html.dark .search-input{background:var(--card);border-color:var(--border);color:var(--ink);}
+html.dark .bag-row{border-color:var(--border);}
+html.dark .dr{border-color:var(--border);}
+html.dark mark{background:#4a3800;color:#ffd700;}
+html.dark .onpill{background:rgba(26,74,107,.3);}
+html.dark .mf-iata{color:var(--ink);}
+html.dark .dr-date{color:#6ab0d8;}
+html.dark .dr-sum{color:var(--ink);}
+html.dark .search-meta{color:var(--muted);}
+
+/* TODAY */
+.today-badge{background:var(--coral);color:#fff;font-size:.5rem;font-weight:700;padding:.1rem .38rem;border-radius:20px;margin-left:.4rem;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle;flex-shrink:0;}
+.dr.is-today .dr-head{background:rgba(201,168,76,.1);}
+html.dark .dr.is-today .dr-head{background:rgba(201,168,76,.15);}
+.dr.is-past{opacity:.5;}
+.dr.is-past .dr-head{pointer-events:auto;}
+
+/* DARK TOGGLE */
+.dm-btn{position:fixed;bottom:1.2rem;right:1rem;width:40px;height:40px;border-radius:50%;background:var(--ocean);border:none;font-size:1.2rem;cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.3);z-index:1000;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+html.dark .dm-btn{background:#2a4a6a;}
+
+/* WEATHER */
+.weather-chip{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:.25rem .7rem;font-size:.7rem;color:rgba(255,255,255,.92);margin-top:.6rem;cursor:default;}
+
+/* CURRENCY */
+.cc-wrap{padding:.75rem 1rem;}
+.cc-top{display:flex;gap:.5rem;align-items:center;margin-bottom:.75rem;}
+.cc-input{width:100px;padding:.45rem .55rem;border:1.5px solid var(--border);border-radius:8px;font-size:.8rem;font-family:'DM Sans',sans-serif;background:var(--card);color:var(--ink);outline:none;-webkit-appearance:none;}
+.cc-sel{padding:.45rem .45rem;border:1.5px solid var(--border);border-radius:8px;font-size:.73rem;font-family:'DM Sans',sans-serif;background:var(--card);color:var(--ink);outline:none;}
+.cc-line{display:flex;justify-content:space-between;align-items:center;padding:.42rem 0;border-top:1px solid var(--border);}
+.cc-line:first-child{border-top:none;}
+.cc-cur{font-size:.65rem;color:var(--muted);}
+.cc-amt{font-size:.78rem;font-weight:500;color:var(--ink);}
+.cc-note{font-size:.56rem;color:var(--muted);margin-top:.6rem;line-height:1.5;}
+
+/* EMERGENCY */
+.em-row{display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;border-top:1px solid var(--border);}
+.em-row:first-child{border-top:none;}
+.em-ico{font-size:1.05rem;width:24px;text-align:center;flex-shrink:0;}
+.em-lbl{font-size:.57rem;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;}
+.em-val{font-size:.73rem;font-weight:500;color:var(--ink);}
+a.em-call{font-size:.68rem;color:var(--sky);text-decoration:none;font-weight:500;display:block;}
+
+/* BAHASA */
+.ph-row{display:flex;align-items:flex-start;gap:.6rem;padding:.55rem 1rem;border-top:1px solid var(--border);}
+.ph-row:first-child{border-top:none;}
+.ph-en{font-size:.62rem;color:var(--muted);min-width:88px;flex-shrink:0;padding-top:.12rem;}
+.ph-id{font-size:.73rem;font-weight:500;color:var(--ink);}
+.ph-pr{font-size:.58rem;color:var(--muted);font-style:italic;display:block;margin-top:.1rem;}
+
+/* FEEDBACK */
+.fb-wrap{padding:.85rem 1rem 1rem;}
+.fb-field{width:100%;margin-bottom:.55rem;padding:.5rem .65rem;border:1.5px solid var(--border);border-radius:8px;font-size:.72rem;font-family:'DM Sans',sans-serif;background:var(--card);color:var(--ink);outline:none;-webkit-appearance:none;box-sizing:border-box;}
+.fb-field:focus{border-color:var(--ocean);}
+textarea.fb-field{resize:vertical;min-height:75px;}
+.fb-btn{width:100%;padding:.55rem;background:var(--ocean);color:#fff;border:none;border-radius:8px;font-size:.72rem;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.fb-ok{font-size:.7rem;color:var(--leaf);text-align:center;padding:.4rem;display:none;}
+
+/* ACTION CHIPS */
+.chip.wa{background:#dcf8c6;border-color:#b0dfa0;color:#1a5c2a;}
+.chip.cal{background:#e8eaf6;border-color:#c5cae9;color:#3949ab;}
+
 footer{text-align:center;padding:1.5rem 1rem 0;font-size:.63rem;color:var(--muted);letter-spacing:.06em;}
 
 /* SEARCH */
@@ -148,8 +229,9 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
     <div class="hstats">
       <div><span class="sv">6</span><span class="sl">Flights</span></div>
       <div><span class="sv">6</span><span class="sl">Destinations</span></div>
-      <div><span class="sv">32</span><span class="sl">Nights</span></div>
+      <div><span class="sv" id="countdown-num">32</span><span class="sl" id="countdown-lbl">Nights</span></div>
     </div>
+    <div class="weather-chip" id="weather-chip">🌤️ Loading weather…</div>
   </div>
 </div>
 <div class="legbar"><div class="dots">
@@ -160,9 +242,11 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
 </div></div>
 
 <div class="toolbar">
+  <button class="tbtn" onclick="jumpToToday()">📅 Today</button>
   <button class="tbtn" onclick="setAll(true)">Expand all</button>
   <button class="tbtn" onclick="setAll(false)">Collapse all</button>
   <button class="tbtn" onclick="openSearch()" id="search-btn">🔍 Search</button>
+  <a class="tbtn" href="https://wa.me/?text=Gupta%20Family%20Trip%20Itinerary%20%F0%9F%8C%BA%20https%3A%2F%2Fguptabali2026.netlify.app" target="_blank" style="text-decoration:none;">📤 Share</a>
 </div>
 
 <div class="search-wrap" id="search-wrap">
@@ -181,6 +265,80 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
   </div>
   <div class="dg-body">
     <div id="trip-map" style="height:280px;"></div>
+  </div>
+</div>
+
+<!-- ═══════ CURRENCY CONVERTER ═══════ -->
+<div class="dg" id="dg-cc">
+  <div class="dg-head" style="background:linear-gradient(135deg,#1a3a2a,#2d6a4a);" onclick="togDg(this)">
+    <div class="dg-em">💱</div>
+    <div class="dg-info"><div class="dg-dates">GBP · SGD · IDR · Live conversion</div><div class="dg-name">Currency Converter</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <div class="cc-wrap">
+      <div class="cc-top">
+        <input class="cc-input" id="cc-amt" type="number" value="100" min="0" oninput="calcCC()">
+        <select class="cc-sel" id="cc-from" onchange="calcCC()">
+          <option value="GBP">£ GBP</option>
+          <option value="SGD">$ SGD</option>
+          <option value="IDR">Rp IDR</option>
+        </select>
+      </div>
+      <div id="cc-out"></div>
+      <div class="cc-note">Rates approximate · GBP/IDR ~20,500 · GBP/SGD ~1.70 · SGD/IDR ~12,050</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ EMERGENCY CONTACTS ═══════ -->
+<div class="dg" id="dg-em">
+  <div class="dg-head" style="background:linear-gradient(135deg,#8b0000,#c0392b);" onclick="togDg(this)">
+    <div class="dg-em">🚨</div>
+    <div class="dg-info"><div class="dg-dates">Police · Ambulance · Hospitals · Embassy</div><div class="dg-name">Emergency Contacts</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <div class="em-row"><div class="em-ico">🆘</div><div><div class="em-lbl">Indonesia Emergency</div><a class="em-call" href="tel:112">112 — Police, ambulance, fire</a></div></div>
+    <div class="em-row"><div class="em-ico">🏥</div><div><div class="em-lbl">BIMC Hospital Bali (24hr)</div><a class="em-call" href="tel:+62361761263">+62 361 761 263</a></div></div>
+    <div class="em-row"><div class="em-ico">🏥</div><div><div class="em-lbl">Siloam Hospital Bali</div><a class="em-call" href="tel:+62361779900">+62 361 779 900</a></div></div>
+    <div class="em-row"><div class="em-ico">🇬🇧</div><div><div class="em-lbl">UK Embassy Jakarta</div><a class="em-call" href="tel:+62212356520">+62 21 2356 5200</a></div></div>
+    <div class="em-row"><div class="em-ico">🇬🇧</div><div><div class="em-lbl">UK Consulate Bali (consular emergencies)</div><a class="em-call" href="tel:+62215265551">+62 21 5265 5551</a></div></div>
+    <div class="em-row"><div class="em-ico">🆘</div><div><div class="em-lbl">Singapore Emergency</div><a class="em-call" href="tel:999">999 — Police &nbsp;·&nbsp; 995 — Ambulance</a></div></div>
+    <div class="em-row"><div class="em-ico">🏨</div><div><div class="em-lbl">Shangri-La Hotel Singapore</div><a class="em-call" href="tel:+6567373644">+65 6737 3644</a></div></div>
+    <div class="em-row"><div class="em-ico">🏨</div><div><div class="em-lbl">Hyatt Regency Sanur</div><a class="em-call" href="tel:+62361281234">+62 361 281 234</a></div></div>
+    <div class="em-row"><div class="em-ico">✈️</div><div><div class="em-lbl">Singapore Airlines</div><a class="em-call" href="tel:+6562238888">+65 6223 8888</a></div></div>
+  </div>
+</div>
+
+<!-- ═══════ BAHASA INDONESIA ═══════ -->
+<div class="dg" id="dg-bahasa">
+  <div class="dg-head" style="background:linear-gradient(135deg,#8b0000,#c0392b);" onclick="togDg(this)">
+    <div class="dg-em">🇮🇩</div>
+    <div class="dg-info"><div class="dg-dates">Essential phrases · Pronunciation guide</div><div class="dg-name">Bahasa Indonesia</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <div class="ph-row"><div class="ph-en">Hello</div><div><span class="ph-id">Halo / Selamat pagi</span><span class="ph-pr">Hah-lo / Seh-lah-mat pah-gi (morning)</span></div></div>
+    <div class="ph-row"><div class="ph-en">Thank you</div><div><span class="ph-id">Terima kasih</span><span class="ph-pr">Teh-ree-ma kah-sih</span></div></div>
+    <div class="ph-row"><div class="ph-en">You're welcome</div><div><span class="ph-id">Sama-sama</span><span class="ph-pr">Sah-ma sah-ma</span></div></div>
+    <div class="ph-row"><div class="ph-en">Please</div><div><span class="ph-id">Tolong</span><span class="ph-pr">Toh-long</span></div></div>
+    <div class="ph-row"><div class="ph-en">Sorry / Excuse me</div><div><span class="ph-id">Maaf</span><span class="ph-pr">Mah-af</span></div></div>
+    <div class="ph-row"><div class="ph-en">Yes / No</div><div><span class="ph-id">Ya / Tidak</span><span class="ph-pr">Yah / Tee-dak</span></div></div>
+    <div class="ph-row"><div class="ph-en">How much?</div><div><span class="ph-id">Berapa harganya?</span><span class="ph-pr">Beh-rah-pa har-ga-nya</span></div></div>
+    <div class="ph-row"><div class="ph-en">Too expensive</div><div><span class="ph-id">Terlalu mahal</span><span class="ph-pr">Ter-lah-loo mah-hal</span></div></div>
+    <div class="ph-row"><div class="ph-en">Cheaper please</div><div><span class="ph-id">Lebih murah?</span><span class="ph-pr">Leh-bih moo-rah</span></div></div>
+    <div class="ph-row"><div class="ph-en">Where is…?</div><div><span class="ph-id">Di mana…?</span><span class="ph-pr">Dee mah-na</span></div></div>
+    <div class="ph-row"><div class="ph-en">I want…</div><div><span class="ph-id">Saya mau…</span><span class="ph-pr">Sah-ya mah-oo</span></div></div>
+    <div class="ph-row"><div class="ph-en">Delicious!</div><div><span class="ph-id">Enak!</span><span class="ph-pr">Eh-nak</span></div></div>
+    <div class="ph-row"><div class="ph-en">Water</div><div><span class="ph-id">Air</span><span class="ph-pr">Ah-ir</span></div></div>
+    <div class="ph-row"><div class="ph-en">Restaurant</div><div><span class="ph-id">Restoran</span><span class="ph-pr">Res-toh-ran</span></div></div>
+    <div class="ph-row"><div class="ph-en">Toilet</div><div><span class="ph-id">Kamar kecil / WC</span><span class="ph-pr">Kah-mar keh-chil</span></div></div>
+    <div class="ph-row"><div class="ph-en">Help!</div><div><span class="ph-id">Tolong!</span><span class="ph-pr">Toh-long!</span></div></div>
+    <div class="ph-row"><div class="ph-en">Hospital</div><div><span class="ph-id">Rumah sakit</span><span class="ph-pr">Roo-mah sah-kit</span></div></div>
+    <div class="ph-row"><div class="ph-en">Left / Right</div><div><span class="ph-id">Kiri / Kanan</span><span class="ph-pr">Kee-ri / Kah-nan</span></div></div>
+    <div class="ph-row"><div class="ph-en">Good morning</div><div><span class="ph-id">Selamat pagi</span><span class="ph-pr">Seh-lah-mat pah-gi</span></div></div>
+    <div class="ph-row"><div class="ph-en">Good night</div><div><span class="ph-id">Selamat malam</span><span class="ph-pr">Seh-lah-mat mah-lam</span></div></div>
   </div>
 </div>
 
@@ -1093,6 +1251,35 @@ mark{background:#fff176;border-radius:2px;padding:0 1px;}
   </div>
 </div>
 
+<!-- ═══════ FEEDBACK ═══════ -->
+<div class="slabel">💬 Leave a Suggestion</div>
+<div class="dg" id="dg-fb">
+  <div class="dg-head" style="background:linear-gradient(135deg,#2a2a4a,#3a3a7a);" onclick="togDg(this)">
+    <div class="dg-em">💬</div>
+    <div class="dg-info"><div class="dg-dates">Suggestions go straight to Nishant</div><div class="dg-name">Family Feedback</div></div>
+    <div class="dg-chev">›</div>
+  </div>
+  <div class="dg-body">
+    <form class="fb-wrap" name="family-feedback" method="POST" data-netlify="true" onsubmit="fbSubmit(event)">
+      <input type="hidden" name="form-name" value="family-feedback">
+      <input class="fb-field" type="text" name="name" placeholder="Your name" required>
+      <select class="fb-field" name="day">
+        <option value="">Which day or section?</option>
+        <option>General</option>
+        <option>Singapore</option>
+        <option>Bali</option>
+        <option>Gili Trawangan</option>
+        <option>Labuan Bajo / Komodo</option>
+        <option>Bali Return (Sanur)</option>
+        <option>Flights / Logistics</option>
+      </select>
+      <textarea class="fb-field" name="suggestion" placeholder="Your suggestion…" required></textarea>
+      <button class="fb-btn" type="submit">Send to Nishant ✈️</button>
+      <div class="fb-ok" id="fb-ok">✅ Sent! Nishant will get a notification.</div>
+    </form>
+  </div>
+</div>
+
 <footer>Gupta Family · July – August 2026 · 4 Passengers<br><span style="font-size:.55rem;opacity:.6;">Last updated: 7 June 2026</span></footer>
 
 <script>
@@ -1140,6 +1327,140 @@ function togDr(head) { head.parentElement.classList.toggle('open'); }
 function setAll(open) {
   document.querySelectorAll('.dg:not(#dg-map)').forEach(el=>el.classList[open?'add':'remove']('open'));
   document.querySelectorAll('.dr').forEach(el=>el.classList[open?'add':'remove']('open'));
+}
+
+
+/* ── DARK MODE ── */
+(function(){
+  if(localStorage.getItem('dark')==='1'){
+    document.documentElement.classList.add('dark');
+    document.getElementById('dm-btn') && (document.getElementById('dm-btn').textContent='☀️');
+  }
+})();
+function toggleDark(){
+  const on = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('dark', on?'1':'0');
+  document.getElementById('dm-btn').textContent = on?'☀️':'🌙';
+}
+
+/* ── DATE UTILS ── */
+const MONTHS = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+function parseDrDate(txt){
+  const m = txt.match(/(\d+)\s+(\w{3})/);
+  if(!m) return null;
+  return new Date(2026, MONTHS[m[2]], parseInt(m[1]));
+}
+
+/* ── TODAY / PAST BADGES ── */
+window.addEventListener('load', function(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  let foundToday = false;
+  document.querySelectorAll('.dr').forEach(dr => {
+    const dateEl = dr.querySelector('.dr-date');
+    if(!dateEl) return;
+    const d = parseDrDate(dateEl.textContent);
+    if(!d) return;
+    const diff = d - today;
+    if(diff < 0){ dr.classList.add('is-past'); }
+    else if(diff === 0 && !foundToday){
+      dr.classList.add('is-today');
+      const badge = document.createElement('span');
+      badge.className='today-badge'; badge.textContent='TODAY';
+      dateEl.appendChild(badge);
+      foundToday = true;
+    }
+  });
+  updateCountdown();
+  loadWeather();
+  calcCC();
+});
+
+/* ── JUMP TO TODAY ── */
+function jumpToToday(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  let target = null, closest = null, closestDiff = Infinity;
+  document.querySelectorAll('.dr').forEach(dr => {
+    const d = parseDrDate((dr.querySelector('.dr-date')||{}).textContent||'');
+    if(!d) return;
+    const diff = d - today;
+    if(diff >= 0 && diff < closestDiff){ closestDiff = diff; closest = dr; }
+  });
+  target = closest;
+  if(!target){ alert('Trip complete! 🎉'); return; }
+  // Open parent dg and the dr itself
+  let el = target.parentElement;
+  while(el){ if(el.classList.contains('dg')) el.classList.add('open'); el=el.parentElement; }
+  target.classList.add('open');
+  setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+}
+
+/* ── COUNTDOWN ── */
+function updateCountdown(){
+  const now = new Date();
+  const destinations = [
+    {name:'to Bali',date:new Date(2026,6,11)},
+    {name:'to Gili T',date:new Date(2026,6,27)},
+    {name:'to Labuan Bajo',date:new Date(2026,6,31)},
+    {name:'to Sanur',date:new Date(2026,7,3)},
+    {name:'home',date:new Date(2026,7,7)},
+  ];
+  const numEl = document.getElementById('countdown-num');
+  const lblEl = document.getElementById('countdown-lbl');
+  if(!numEl) return;
+  for(const d of destinations){
+    const diff = Math.ceil((d.date - now) / 86400000);
+    if(diff > 0){ numEl.textContent=diff; lblEl.textContent='days '+d.name; return; }
+  }
+  numEl.textContent='🎉'; lblEl.textContent='Trip done!';
+}
+
+/* ── WEATHER ── */
+async function loadWeather(){
+  const chip = document.getElementById('weather-chip');
+  if(!chip) return;
+  const now = new Date();
+  let lat=-8.5069, lon=115.2625, loc='Bali (Ubud)';
+  if(now < new Date(2026,6,11)){lat=1.3521;lon=103.8198;loc='Singapore';}
+  else if(now>=new Date(2026,6,27)&&now<new Date(2026,6,31)){lat=-8.3558;lon=116.0423;loc='Gili Trawangan';}
+  else if(now>=new Date(2026,6,31)&&now<new Date(2026,7,3)){lat=-8.4925;lon=119.8773;loc='Labuan Bajo';}
+  else if(now>=new Date(2026,7,3)){lat=-8.7022;lon=115.2632;loc='Sanur, Bali';}
+  try{
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`);
+    const d=await r.json();
+    const temp=Math.round(d.current.temperature_2m);
+    const code=d.current.weather_code;
+    const em=code===0?'☀️':code<=2?'🌤️':code<=3?'⛅':code<=48?'🌫️':code<=67?'🌧️':code<=82?'🌦️':'⛈️';
+    chip.textContent=`${em} ${temp}°C · ${loc}`;
+  }catch(e){chip.textContent='🌤️ Weather unavailable';}
+}
+
+/* ── CURRENCY CONVERTER ── */
+const RATES = {GBP:{SGD:1.70,IDR:20500},SGD:{GBP:0.588,IDR:12050},IDR:{GBP:0.0000488,SGD:0.0000830}};
+const SYMBOLS = {GBP:'£',SGD:'S$',IDR:'Rp '};
+function calcCC(){
+  const amt=parseFloat(document.getElementById('cc-amt').value)||0;
+  const from=document.getElementById('cc-from').value;
+  const out=document.getElementById('cc-out');
+  if(!out) return;
+  let html='';
+  ['GBP','SGD','IDR'].forEach(to=>{
+    if(to===from) return;
+    const rate=RATES[from][to];
+    const val=amt*rate;
+    const fmt=to==='IDR'?Math.round(val).toLocaleString('en-GB'):val.toFixed(2);
+    html+=`<div class="cc-line"><span class="cc-cur">${to}</span><span class="cc-amt">${SYMBOLS[to]}${fmt}</span></div>`;
+  });
+  out.innerHTML=html;
+}
+
+/* ── FEEDBACK FORM ── */
+function fbSubmit(e){
+  e.preventDefault();
+  const form=e.target;
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:new URLSearchParams(new FormData(form)).toString()})
+    .then(()=>{form.style.display='none';document.getElementById('fb-ok').style.display='block';})
+    .catch(()=>{document.getElementById('fb-ok').textContent='Sent!';document.getElementById('fb-ok').style.display='block';});
 }
 
 /* ── SEARCH ── */
@@ -1218,6 +1539,7 @@ function clearSearch() {
   document.getElementById('search-btn').style.display = '';
 }
 </script>
+<button class="dm-btn" id="dm-btn" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
